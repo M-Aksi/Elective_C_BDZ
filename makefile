@@ -1,23 +1,26 @@
 CC = gcc               # Используем компилятор gcc
 CFLAGS = -Wall -Wextra # Флаги компиляции: включить все предупреждения
+LDFLAGS = -lpthread    # Флаги линковки: подключить pthread
 TARGET = bdz_3         # Имя итогового исполняемого файла
 
-all: $(TARGET)  # Сборка главной цели (TARGET)
+all: $(TARGET)         # Сборка главной цели (TARGET)
 
-$(TARGET): main.o MyList.o delay.o # Линковка object-файлов
-	$(CC) main.o MyList.o delay.o -o $(TARGET)    
+$(TARGET): main.o MyList.o delay.o MyThreads.o # Линковка object-файлов $^ — все зависимости, $@ — цель
+	$(CC) $^ -o $@ $(LDFLAGS)    
 
-main.o: main.c MyList.h  # Компиляция main.c
-	$(CC) $(CFLAGS) -c main.c -o main.o 
+main.o: main.c MyList.h                        #$< — первая зависимость
+	$(CC) $(CFLAGS) -c $< -o $@  
 
-MyList.o: MyList.c MyList.h # Компиляция MyList.c
-	$(CC) $(CFLAGS) -c MyList.c -o MyList.o 
+MyList.o: MyList.c MyList.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-delay.o: delay.c delay.h # Компиляция delay.c
-	$(CC) $(CFLAGS) -c delay.c -o delay.o 
+delay.o: delay.c delay.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-clean: # Удаление всех .o-файлов и бинарника
+MyThreads.o: MyThreads.c MyThreads.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:                                          # Удаление всех .o-файлов и бинарника
 	rm -f *.o $(TARGET)
 
-# Указание, что это "виртуальные" цели (не файлы)
 .PHONY: all clean

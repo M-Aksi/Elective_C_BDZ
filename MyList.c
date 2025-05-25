@@ -58,6 +58,7 @@ void freeList(DoublyLinkedList* list) {
 // Функция вывода списка от начала к концу
 void printForward(const DoublyLinkedList* list){
     Node* current = list -> head;
+    printf("Dec list: ");
     while(current != NULL){
         printf("%d ", current -> data);
         current = current -> next;
@@ -68,6 +69,7 @@ void printForward(const DoublyLinkedList* list){
 // Функция вывода списка от конца к началу
 void printBackward(const DoublyLinkedList* list){
     Node* current = list -> tail;
+    printf("Dec list: ");
     while(current != NULL){
         printf("%d ", current -> data);
         current = current -> prev;
@@ -85,27 +87,29 @@ void generateRandomList(DoublyLinkedList* list, int count){
 
 // Функция для вывода списка в двоичном виде
 void printBinaryValue(const DoublyLinkedList* list) {
+    printf("Binary list: ");
     Node* current = list -> head;
-    int numberDex;
+    int numberDec;
     int count = -1;
     while(current != NULL){
-        numberDex = current -> data;
+        numberDec = current -> data;
         int* numberBin = (int*)calloc(SIZE, sizeof(int));
         if (numberBin == NULL){
             printf("Memory allocation error!\n");
             exit(1);
         }
         //printf("%d ", numberDex);
-        
-        while (numberDex != 0){
-            numberBin[++count] = numberDex % 2;  // добываем 0 и 1 из числа
-            numberDex /= 2;                
+        numberBin[++count] = numberDec % 2;
+        while (numberDec != 0){
+            numberDec /= 2;
+            numberBin[++count] = numberDec % 2;  // добываем 0 и 1 из числа       
         }
-        numberBin[++count] = 1;                  // заканчиваем всегда 1
+        
+        
         // разворачиваем двоичное число 
         for (int i = 0; i < count / 2; ++i){
             int bubble = numberBin[i];
-            numberBin[i] = numberBin[count - 1 - i]; // обмене крайних элементо, двигаемся к середине
+            numberBin[i] = numberBin[count - 1 - i]; // обмен крайних элементов, двигаемся к середине
             numberBin[count - 1 - i] = bubble; 
         }
         // вывод в консоль
@@ -115,7 +119,7 @@ void printBinaryValue(const DoublyLinkedList* list) {
         printf(" "); // пробел между двоичными числами
         free(numberBin); // освобождаем память
         numberBin = NULL;
-        numberDex = 0;
+        numberDec = 0;
         count = -1;
         current = current -> next;
     }
