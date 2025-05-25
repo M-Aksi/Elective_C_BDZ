@@ -38,10 +38,10 @@ Node* createNode(int value);
 void append(DoublyLinkedList* list, int value);
 void freeList(DoublyLinkedList* list);
 
-void print_forward(const DoublyLinkedList* list);
-void print_backward(const DoublyLinkedList* list);
+void printForward(const DoublyLinkedList* list);
+void printBackward(const DoublyLinkedList* list);
 
-void generate_random_list(DoublyLinkedList* list, int count);
+void generateRandomList(DoublyLinkedList* list, int count);
 
 
 #endif // MYLIST_H

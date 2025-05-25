@@ -54,8 +54,31 @@ void freeList(DoublyLinkedList* list) {
     list->size = 0;
 }
 
-void print_forward(const DoublyLinkedList* list){
-
+// Функция вывода списка от начала к концу
+void printForward(const DoublyLinkedList* list){
+    Node* current = list -> head;
+    while(current != NULL){
+        printf("%d ", current -> data);
+        current = current -> next;
+    }
+    printf("\n");
 }
 
+// Функция вывода списка от конца к началу
+void printBackward(const DoublyLinkedList* list){
+    Node* current = list -> tail;
+    while(current != NULL){
+        printf("%d ", current -> data);
+        current = current -> prev;
+    }
+    printf("\n");
+}
+
+void generateRandomList(DoublyLinkedList* list, int count){
+    // Инициализация генератора случайных чисел
+    srand(time(NULL));
+    for (int i = 0; i < count; ++i){
+        append(list, rand() % 100);
+    }
+}
 
