@@ -43,5 +43,7 @@ void printBackward(const DoublyLinkedList* list);
 
 void generateRandomList(DoublyLinkedList* list, int count);
 
+void printBinaryValue(const DoublyLinkedList* list);
+
 
 #endif // MYLIST_H

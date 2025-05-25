@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include "MyList.h"
-#include <Windows.h>
+#include "delay.h"
 
 #define SIZE 10 
 
 int main() {
-    printf("It's OK!\n");
+    
     DoublyLinkedList MyList;
-    DoublyLinkedList* ptrMyList = &MyList;
-    initList(ptrMyList);
-    generateRandomList(ptrMyList, SIZE);
-    printForward(ptrMyList);
+    initList(&MyList);                       
+    generateRandomList(&MyList, SIZE);
 
-    // задержка отображения в консоли
-    Sleep(5000);
+    printForward(&MyList);                 // десятичный вид
+    printBinaryValue(&MyList);             // двоичный вид
+
+    delay_ms(5000);                        // задержка отображения в консоли (Linux|Windows)
+    
+    freeList(&MyList);                     // освобождение памяти
     return 0;
 }

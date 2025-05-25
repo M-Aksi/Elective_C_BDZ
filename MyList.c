@@ -3,6 +3,7 @@
 #include <time.h>
 
 #include "MyList.h"
+#define SIZE 10            // максимальный размер двоичного числа
 
 
 // Функция для инициализации списка
@@ -82,3 +83,41 @@ void generateRandomList(DoublyLinkedList* list, int count){
     }
 }
 
+// Функция для вывода списка в двоичном виде
+void printBinaryValue(const DoublyLinkedList* list) {
+    Node* current = list -> head;
+    int numberDex;
+    int count = -1;
+    while(current != NULL){
+        numberDex = current -> data;
+        int* numberBin = (int*)calloc(SIZE, sizeof(int));
+        if (numberBin == NULL){
+            printf("Memory allocation error!\n");
+            exit(1);
+        }
+        //printf("%d ", numberDex);
+        
+        while (numberDex != 0){
+            numberBin[++count] = numberDex % 2;  // добываем 0 и 1 из числа
+            numberDex /= 2;                
+        }
+        numberBin[++count] = 1;                  // заканчиваем всегда 1
+        // разворачиваем двоичное число 
+        for (int i = 0; i < count / 2; ++i){
+            int bubble = numberBin[i];
+            numberBin[i] = numberBin[count - 1 - i]; // обмене крайних элементо, двигаемся к середине
+            numberBin[count - 1 - i] = bubble; 
+        }
+        // вывод в консоль
+        for (int i = 0;i < count; ++i){
+            printf("%d",numberBin[i]);
+        }
+        printf(" "); // пробел между двоичными числами
+        free(numberBin); // освобождаем память
+        numberBin = NULL;
+        numberDex = 0;
+        count = -1;
+        current = current -> next;
+    }
+    printf("\n");
+}

@@ -4,14 +4,17 @@ TARGET = bdz_3         # Имя итогового исполняемого фа
 
 all: $(TARGET)  # Сборка главной цели (TARGET)
 
-$(TARGET): main.o MyList.o # Линковка object-файлов
-	$(CC) main.o MyList.o -o $(TARGET)    
+$(TARGET): main.o MyList.o delay.o # Линковка object-файлов
+	$(CC) main.o MyList.o delay.o -o $(TARGET)    
 
 main.o: main.c MyList.h  # Компиляция main.c
 	$(CC) $(CFLAGS) -c main.c -o main.o 
 
 MyList.o: MyList.c MyList.h # Компиляция MyList.c
 	$(CC) $(CFLAGS) -c MyList.c -o MyList.o 
+
+delay.o: delay.c delay.h # Компиляция delay.c
+	$(CC) $(CFLAGS) -c delay.c -o delay.o 
 
 clean: # Удаление всех .o-файлов и бинарника
 	rm -f *.o $(TARGET)
